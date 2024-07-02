@@ -9,8 +9,6 @@ const usersRouter = require("./routes/users");
 
 app = express();
 
-console.log(process.env.STRING_CONNECTION);
-
 app.use(logger("dev"));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
