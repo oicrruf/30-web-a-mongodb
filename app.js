@@ -8,6 +8,9 @@ require("dotenv").config();
 const indexRouter = require("./routes/index");
 const usersRouter = require("./routes/users");
 const productRouter = require("./routes/product");
+const saleRouter = require("./routes/sale");
+const purchaseRouter = require("./routes/purchase");
+const customerRouter = require("./routes/customer");
 
 app = express();
 
@@ -24,5 +27,8 @@ mongoose
 app.use("/", indexRouter);
 app.use("/users", usersRouter);
 app.use("/product", productRouter);
+app.use("/sale", saleRouter);
+app.use("/purchase", purchaseRouter);
+app.use("/customer", customerRouter);
 
 module.exports = app;
