@@ -1,28 +1,28 @@
 const express = require("express");
 const router = express.Router();
-const { Sale } = require("../src/model/sale");
+const { Customer } = require("../model/customer");
 
-// Todos los productos
+// Todos los clientes
 router.get("/", (req, res, next) => {
   res.send({ message: "Soy product GET" });
 });
 
-// Productos por ID
+// Cliente por ID
 router.get("/:id", (req, res, next) => {
   res.send({ message: req.params.id });
 });
 
-// Crear producto
+// Crear cliente
 router.post("/", (req, res, next) => {
   res.send({ message: "Soy product GET" });
 });
 
-// Actualizar producto
+// Actualizar cliente
 router.patch("/:id", (req, res, next) => {
   res.send({ message: req.params.id });
 });
 
-// Eliminar producto
+// Eliminar cliente
 router.delete("/:id", (req, res, next) => {
   res.send({ message: req.params.id });
 });

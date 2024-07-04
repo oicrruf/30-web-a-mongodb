@@ -5,12 +5,12 @@ const mongoose = require("mongoose");
 
 require("dotenv").config();
 
-const indexRouter = require("./routes/index");
-const usersRouter = require("./routes/users");
-const productRouter = require("./routes/product");
-const saleRouter = require("./routes/sale");
-const purchaseRouter = require("./routes/purchase");
-const customerRouter = require("./routes/customer");
+const indexRouter = require("./src/routes/index");
+const usersRouter = require("./src/routes/users");
+const productRouter = require("./src/routes/product");
+const saleRouter = require("./src/routes/sale");
+const purchaseRouter = require("./src/routes/purchase");
+const customerRouter = require("./src/routes/customer");
 
 app = express();
 
