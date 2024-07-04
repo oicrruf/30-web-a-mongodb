@@ -1,14 +1,16 @@
 const express = require("express");
 const router = express.Router();
 const { Product } = require("../model/product");
+const { date } = require("../middleware/date");
+const { isValid } = require("../middleware/isValid");
 
 // Todos los productos
-router.get("/", (req, res, next) => {
+router.get("/", date, (req, res, next) => {
   res.send({ message: "Soy product GET" });
 });
 
 // Productos por ID
-router.get("/:id", (req, res, next) => {
+router.get("/:id", isValid, date, (req, res, next) => {
   res.send({ message: req.params.id });
 });
 
