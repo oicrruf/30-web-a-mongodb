@@ -19,10 +19,10 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 
-mongoose
-  .connect(process.env.DATABASE_URI)
-  .then(() => console.log("Database connected"))
-  .catch((err) => console.log(err));
+// mongoose
+//   .connect(process.env.DATABASE_URI)
+//   .then(() => console.log("Database connected"))
+//   .catch((err) => console.log(err));
 
 app.use("/", indexRouter);
 app.use("/users", usersRouter);
