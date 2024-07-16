@@ -4,13 +4,13 @@ const router = express.Router();
 // const { date } = require("../middleware/date");
 // const { isValid } = require("../middleware/isValid");
 const db = require("../../mongo");
-
+const { ObjectId } = require("mongodb");
 const { createProduct } = require("../middleware/product/create");
 const { updateProduct } = require("../middleware/product/update");
 
 const collection = db.collection("product");
 
-// Crear producto
+// create item
 router.post("/", createProduct, async (req, res, next) => {
   await collection
     .insertOne(req.body)
@@ -18,54 +18,41 @@ router.post("/", createProduct, async (req, res, next) => {
     .catch((error) => res.status(500).send({ message: error }));
 });
 
-// router.get("/", date, (req, res, next) => {
+// get items
 router.get("/", async (req, res, next) => {
-  let productos = await collection.find({}).toArray((err, result) => {
-    if (err) throw err;
-    console.log(result);
-    db.close();
-  });
-
-  res.send(productos);
+  await collection
+    .find()
+    .toArray((err, result) => {
+      if (err) throw err;
+    })
+    .then((doc) => res.status(200).send(doc))
+    .catch((error) => res.status(500).send({ message: error }));
 });
 
-// Productos por ID
-// router.get("/:id", isValid, date, (req, res, next) => {
+// get item
 router.get("/:id", async (req, res, next) => {
-  let producto = await collection.findOne(
-    { name: req.params.id },
-    (err, result) => {
+  await collection
+    .findOne({ _id: new ObjectId(req.params.id) }, (err, result) => {
       if (err) throw err;
-      console.log(result);
-    }
-  );
-  res.send(producto);
+    })
+    .then((doc) => res.status(200).send(doc))
+    .catch((error) => res.status(500).send({ message: error }));
 });
 
-// Actualizar producto
+// update item
 router.patch("/:id", updateProduct, async (req, res, next) => {
-  let producto = await collection.updateOne(
-    { name: req.params.id },
-    { $set: { name: req.body.name } },
-    (err, result) => {
-      if (err) throw err;
-      console.log(result);
-    }
-  );
-  res.send(producto);
+  await collection
+    .updateOne({ _id: new ObjectId(req.params.id) }, { $set: req.body })
+    .then((doc) => res.status(200).send(doc))
+    .catch((error) => res.status(500).send({ message: error }));
 });
 
-// Eliminar producto
-router.delete("/:name", async (req, res, next) => {
-  let producto = await collection.deleteOne(
-    { name: req.params.name },
-    function (err, obj) {
-      if (err) throw err;
-
-      db.close();
-    }
-  );
-  res.send(producto);
+// delete item
+router.delete("/:id", async (req, res, next) => {
+  await collection
+    .deleteOne({ _id: new ObjectId(req.params.id) })
+    .then((doc) => res.status(200).send(doc))
+    .catch((error) => res.status(500).send({ message: error }));
 });
 
 module.exports = router;

@@ -7,6 +7,6 @@ client
   .then(() => console.log("Database connected"))
   .catch((err) => console.log(err));
 
-const db = client.db("mi-tienda");
+const db = client.db(process.env.DATABASE);
 
 module.exports = db;
